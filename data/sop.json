@@ -3,7 +3,7 @@
     {
       "id": "radio",
       "title": "SOP RADIO",
-      "color": "#00ff3c",
+      "color": "#d4d400",
       "textColor": "#00f83a",
       "rows": [
         { "kode": "8-1-0", "arti": "Izin berhenti bertugas (Off-duty)" },

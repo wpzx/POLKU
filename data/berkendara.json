@@ -1,43 +1,31 @@
 {
   "categories": [
     {
-      "id": "ringan",
-      "title": "PIDANA RINGAN",
-      "color": "#e8f5e9",
-      "textColor": "#1b5e20",
+      "id": "berkendara_umum",
+      "title": "JENIS PELANGGARAN BERKENDARA",
+      "color": "#007bff",
+      "textColor": "#ffffff",
       "rows": [
-        { "uu": "1:6", "tindak": "Mengemudi Motor Tanpa Helm", "denda": 3000, "hukuman": "Kunci Ban + Impound" },
-        { "uu": "1:7", "tindak": "Kendaraan Tanpa Plate", "denda": 4000, "hukuman": "Kunci Ban + Impound" }
-      ]
-    },
-        {
-      "id": "ringan",
-      "title": "PIDANA RINGAN",
-      "color": "#e8f5e9",
-      "textColor": "#1b5e20",
-      "rows": [
-        { "uu": "1:6", "tindak": "Mengemudi Motor Tanpa Helm", "denda": 3000, "hukuman": "Kunci Ban + Impound" },
-        { "uu": "1:7", "tindak": "Kendaraan Tanpa Plate", "denda": 4000, "hukuman": "Kunci Ban + Impound" }
-      ]
-    },
-        {
-      "id": "ringan",
-      "title": "PIDANA RINGAN",
-      "color": "#e8f5e9",
-      "textColor": "#1b5e20",
-      "rows": [
-        { "uu": "1:6", "tindak": "Mengemudi Motor Tanpa Helm", "denda": 3000, "hukuman": "Kunci Ban + Impound" },
-        { "uu": "1:7", "tindak": "Kendaraan Tanpa Plate", "denda": 4000, "hukuman": "Kunci Ban + Impound" }
-      ]
-    },
-    {
-      "id": "sedang",
-      "title": "PIDANA SEDANG",
-      "color": "#fef9c3",
-      "textColor": "#713f12",
-      "rows": [
-        { "uu": "1:16", "tindak": "Balapan Liar", "denda": 5000, "hukuman": "Kunci Ban + Impound" },
-        { "uu": "1:17", "tindak": "Tabrak Lari", "denda": 4000, "hukuman": "Kunci Ban + Impound" }
+        { "uu": "A.1", "tindak": "Mengemudi Tanpa Helm", "denda": 500, "penjara": "KUNCI BAN" },
+        { "uu": "A.2", "tindak": "Kendaraan Tanpa Plat", "denda": 1500, "penjara": "KUNCI BAN" },
+        { "uu": "A.3", "tindak": "Mengemudi Kendaraan Tanpa SIM", "denda": 1500, "penjara": "KUNCI BAN" },
+        { "uu": "A.4", "tindak": "Melawan Arus Jalan", "denda": 1000, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.5", "tindak": "Parkir Liar", "denda": 1500, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.6", "tindak": "Parkir Liar (Totalled/Mogok)", "denda": 1000, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.7", "tindak": "Tidak Membayar Tol", "denda": 1000, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.8", "tindak": "Tidak Mematuhi Rambu Jalan", "denda": 1500, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.9", "tindak": "Kecepatan Melebihi 80 KM/Jam Dalam Kota", "denda": 1000, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.10", "tindak": "Memotong Jalan Tanpa Rambu Jalan", "denda": 1000, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.11", "tindak": "Balapan Liar", "denda": 2000, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.12", "tindak": "Tabrak Lari", "denda": 2500, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.13", "tindak": "Kendaraan Berada Di Zona Ilegal", "denda": 5000, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.14", "tindak": "Berkendara Ugal-Ugalan", "denda": 2000, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.15", "tindak": "Truck Memasuki Kota Diluar Jam Ketentuan", "denda": 2500, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.16", "tindak": "Melarikan Diri Dari Pemberhentian", "denda": 3000, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.17", "tindak": "Modifikasi Ilegal", "denda": 4000, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.18", "tindak": "Melarikan Diri Dari Razia", "denda": 2500, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.19", "tindak": "Kendaraan Berada Di Area Peperangan/Konflik", "denda": 5000, "penjara": "KUNCI BAN + IMPOUND" },
+        { "uu": "A.20", "tindak": "Kendaraan Membawa Barang Ilegal", "denda": 5000, "penjara": "KUNCI BAN + IMPOUND" }
       ]
     }
   ]

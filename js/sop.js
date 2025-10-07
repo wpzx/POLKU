@@ -29,22 +29,26 @@
     }
 
     data.categories.forEach((cat) => {
-      const bgColor = cat.color || "#f0f0f0";
-      const textColor = cat.textColor || "#333";
+      const sec = document.createElement("section");
+      sec.className = "table-section";
+      sec.dataset.category = cat.id;
+      const bgColor = cat.color || "#15172e";
+      const textColor = cat.textColor || "#ffffff";
+      
       const table = document.createElement("table");
-      table.className = "border border-gray-300 mb-6";
       table.innerHTML = `
         <thead>
-          <tr style="background-color: ${bgColor}; color: ${textColor};">
-            <th colspan="2" class="p-4 text-center text-lg">${cat.title || cat.id}</th>
+          <tr style="background-color: ${bgColor};">
+            <th colspan="2">${cat.title || cat.id}</th>
           </tr>
-          <tr style="background-color: ${bgColor}; color: ${textColor};">
-            <th class="border p-2 text-center">KODE</th>
-            <th class="border p-2 text-center">ARTI</th>
+          <tr style="background-color: ${bgColor};">
+            <th>KODE</th>
+            <th>ARTI</th>
           </tr>
         </thead>
         <tbody id="${cat.id}Table"></tbody>
       `;
+      
       const tbody = table.querySelector(`#${cat.id}Table`);
       if (!cat.rows || !Array.isArray(cat.rows)) {
         console.error(`[sop.js] No rows found for category ${cat.id}`);
@@ -53,12 +57,14 @@
       cat.rows.forEach((row) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td class="border p-2 text-center">${row.kode || '-'}</td>
-          <td class="border p-2">${row.arti || '-'}</td>
+          <td style="text-align: center; font-weight: 600;">${row.kode || '-'}</td>
+          <td>${row.arti || '-'}</td>
         `;
         tbody.appendChild(tr);
       });
-      container.appendChild(table);
+      
+      sec.appendChild(table);
+      container.appendChild(sec);
     });
   }
 
@@ -68,18 +74,41 @@
       console.error("[sop.js] Search input not found");
       return;
     }
+    
     input.addEventListener("input", function () {
-      const filter = this.value.toLowerCase();
-      document.querySelectorAll("#sop-sections tbody tr").forEach((row) => {
-        const cells = row.getElementsByTagName("td");
-        let visible = false;
-        for (let i = 0; i < cells.length; i++) {
-          if (cells[i].textContent.toLowerCase().includes(filter)) {
+      const filter = this.value.toLowerCase().trim();
+      const sections = document.querySelectorAll(".table-section");
+      
+      sections.forEach((section) => {
+        const tbody = section.querySelector("tbody");
+        const rows = tbody.querySelectorAll("tr");
+        let hasVisibleRow = false;
+        
+        rows.forEach((row) => {
+          const cells = row.getElementsByTagName("td");
+          let visible = false;
+          
+          if (filter === "") {
             visible = true;
-            break;
+          } else {
+            for (let i = 0; i < cells.length; i++) {
+              if (cells[i].textContent.toLowerCase().includes(filter)) {
+                visible = true;
+                break;
+              }
+            }
           }
+          
+          row.style.display = visible ? "" : "none";
+          if (visible) hasVisibleRow = true;
+        });
+        
+        // Hide atau show section berdasarkan apakah ada row yang visible
+        if (hasVisibleRow || filter === "") {
+          section.classList.remove("hidden");
+        } else {
+          section.classList.add("hidden");
         }
-        row.style.display = visible ? "" : "none";
       });
     });
   }

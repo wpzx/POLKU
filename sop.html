@@ -10,21 +10,24 @@
 <body>
     <header class="header">
         <div class="container">
-            <h1 class="header-title">Polisi Kuyland</h1>
+            <div class="header-logo-title">
+                <img src="foto/logo polisi.png" alt="Logo Polisi Kuyland" class="header-logo">
+                <h1 class="header-title">Polisi Kuyland</h1>
+            </div>
             <nav class="nav">
                 <div class="nav-item dropdown">
-                    <button class="nav-link">Layanan</button>
+                    <button class="nav-link">Layanan ▼</button>
                     <div class="dropdown-content">
-                        <a href="sop.html">SOP</a>
-                        <a href="undang.html">UUD Kuyland</a>
-                        <a href="berkendara.html">UUD Berkendara</a>
+                        <a href="sop.html">📋 SOP</a>
+                        <a href="undang.html">⚖️ UUD Kuyland</a>
+                        <a href="berkendara.html">🚗 UUD Berkendara</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <button id="user-info" class="nav-link"><span id="user-name">Silahkan Login</span></button>
+                    <button id="user-info" class="nav-link"><span id="user-name">👤 Silahkan Login</span></button>
                     <div id="profile-menu" class="dropdown-content">
-                        <a id="openProfile" href="#">Profil</a>
-                        <a href="index.html">Logout</a>
+                        <a id="openProfile" href="#">👮 Profil</a>
+                        <a href="index.html">🚪 Logout</a>
                     </div>
                 </div>
             </nav>
@@ -34,16 +37,18 @@
     <div id="profileModal" class="modal">
         <div class="modal-content">
             <button id="closeProfile" class="close-btn">&times;</button>
-            <h2 class="modal-title">Profil Petugas</h2>
-            <p><strong>Nama:</strong> <span id="petugasNama">Nama Polisi</span></p>
-            <p><strong>Pangkat:</strong> <span id="petugasJabatan">-</span></p>
-            <p><strong>Divisi:</strong> <span id="petugasDivisi">-</span></p>
+            <h2 class="modal-title">👮 Profil Petugas</h2>
+            <div style="padding: 10px 0;">
+                <p style="margin: 10px 0;"><strong>Nama:</strong> <span id="petugasNama">Nama Polisi</span></p>
+                <p style="margin: 10px 0;"><strong>Pangkat:</strong> <span id="petugasJabatan">-</span></p>
+                <p style="margin: 10px 0;"><strong>Divisi:</strong> <span id="petugasDivisi">-</span></p>
+            </div>
         </div>
     </div>
 
     <main class="main">
-        <h2 class="main-title">SOP Polisi Kuyland 2025</h2>
-        <input id="searchInput" type="text" placeholder="Cari kode atau arti..." class="search-input">
+        <h2 class="main-title">📋 SOP Polisi Kuyland 2025</h2>
+        <input id="searchInput" type="text" placeholder=" Cari kode atau arti..." class="search-input">
 
         <div id="sop-sections" class="table-container"></div>
     </main>

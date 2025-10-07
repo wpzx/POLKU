@@ -33,21 +33,23 @@
 
     data.categories.forEach((cat) => {
       const sec = document.createElement("section");
-      sec.className = "mb-6";
-      const bgColor = cat.color || "#f0f0f0";
-      const textColor = cat.textColor || "#333";
+      sec.className = "table-section";
+      sec.dataset.category = cat.id;
+      const bgColor = cat.color || "#15172e";
+      const textColor = cat.textColor || "#ffffff";
+      
       sec.innerHTML = `
-        <table class="border border-gray-300">
+        <table>
           <thead>
-            <tr style="background-color: ${bgColor}; color: ${textColor};">
-              <th colspan="5" class="p-4 text-center text-lg">${cat.title || cat.id}</th>
+            <tr style="background-color: ${bgColor};">
+              <th colspan="5">${cat.title || cat.id}</th>
             </tr>
-            <tr style="background-color: ${bgColor}; color: ${textColor};">
-              <th class="border p-2">UU</th>
-              <th class="border p-2 text-center">Ceklis</th>
-              <th class="border p-2">Jenis Pelanggaran</th>
-              <th class="border p-2">Denda</th>
-              <th class="border p-2">Hukuman</th>
+            <tr style="background-color: ${bgColor};">
+              <th>UU</th>
+              <th>Ceklis</th>
+              <th>Jenis Pelanggaran</th>
+              <th>Denda</th>
+              <th>Hukuman</th>
             </tr>
           </thead>
           <tbody id="${cat.id}Table"></tbody>
@@ -63,11 +65,11 @@
       cat.rows.forEach((row) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td class="border p-2">${row.uu || '-'}</td>
-          <td class="border p-2 text-center"><input type="checkbox" class="checkbox" data-uu="${row.uu || ''}" data-tindak="${row.tindak || ''}" data-denda="${row.denda || 0}" data-hukuman="${row.hukuman || ''}"></td>
-          <td class="border p-2">${row.tindak || '-'}</td>
-          <td class="border p-2">${row.denda || 0}</td>
-          <td class="border p-2">${row.hukuman || '-'}</td>
+          <td>${row.uu || '-'}</td>
+          <td style="text-align: center;"><input type="checkbox" class="checkbox" data-uu="${row.uu || ''}" data-tindak="${row.tindak || ''}" data-denda="${row.denda || 0}" data-hukuman="${row.hukuman || ''}"></td>
+          <td>${row.tindak || '-'}</td>
+          <td>$${(row.denda || 0).toLocaleString()}</td>
+          <td>${row.hukuman || '-'}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -80,18 +82,41 @@
       console.error("[berkendara.js] Search input not found");
       return;
     }
+    
     input.addEventListener("input", function () {
-      const filter = this.value.toLowerCase();
-      document.querySelectorAll("#ber-sections tbody tr").forEach((row) => {
-        const cells = row.getElementsByTagName("td");
-        let visible = false;
-        for (let i = 0; i < cells.length; i++) {
-          if (cells[i].textContent.toLowerCase().includes(filter)) {
+      const filter = this.value.toLowerCase().trim();
+      const sections = document.querySelectorAll(".table-section");
+      
+      sections.forEach((section) => {
+        const tbody = section.querySelector("tbody");
+        const rows = tbody.querySelectorAll("tr");
+        let hasVisibleRow = false;
+        
+        rows.forEach((row) => {
+          const cells = row.getElementsByTagName("td");
+          let visible = false;
+          
+          if (filter === "") {
             visible = true;
-            break;
+          } else {
+            for (let i = 0; i < cells.length; i++) {
+              if (cells[i].textContent.toLowerCase().includes(filter)) {
+                visible = true;
+                break;
+              }
+            }
           }
+          
+          row.style.display = visible ? "" : "none";
+          if (visible) hasVisibleRow = true;
+        });
+        
+        // Hide atau show section berdasarkan apakah ada row yang visible
+        if (hasVisibleRow || filter === "") {
+          section.classList.remove("hidden");
+        } else {
+          section.classList.add("hidden");
         }
-        row.style.display = visible ? "" : "none";
       });
     });
   }
@@ -117,7 +142,7 @@
       table.classList.remove("hidden");
       document.getElementById("uu-summary").textContent = uuSummary.join(", ") || "-";
       document.getElementById("tindak-summary").textContent = tindakSummary.join(", ") || "-";
-      document.getElementById("denda-summary").textContent = totalDenda.toLocaleString() || "0";
+      document.getElementById("denda-summary").textContent = `$${totalDenda.toLocaleString()}` || "$0";
       document.getElementById("hukuman-summary").textContent = Array.from(uniquePenalties).join(", ") || "-";
     } else {
       table.classList.add("hidden");
@@ -152,67 +177,29 @@
         btn.addEventListener("click", () => {
           const el = document.getElementById(srcId);
           const text = el?.textContent || "";
-          if (text) {
+          if (text && text !== "-") {
             navigator.clipboard.writeText(text).then(
-              () => Swal.fire({ title: "Berhasil!", text: "Teks disalin ke clipboard", icon: "success", timer: 1500 }),
+              () => Swal.fire({ 
+                title: "Berhasil!", 
+                text: "Teks disalin ke clipboard", 
+                icon: "success", 
+                timer: 1500,
+                showConfirmButton: false
+              }),
               (err) => console.error("[berkendara.js] copy error:", err)
             );
+          } else {
+            Swal.fire({ 
+              title: "Tidak Ada Data", 
+              text: "Tidak ada data untuk disalin", 
+              icon: "info", 
+              timer: 1500,
+              showConfirmButton: false
+            });
           }
         });
       }
     });
-
-    const openEditor = document.getElementById("openEditor");
-    if (openEditor) {
-      openEditor.addEventListener("click", () => {
-        if (POLKU_COMMON.requireRanks(["jenderal polisi"])) {
-          document.getElementById("editorModal").classList.remove("hidden");
-        }
-      });
-    }
-
-    const closeEditor = document.getElementById("closeEditor");
-    if (closeEditor) {
-      closeEditor.addEventListener("click", () => {
-        document.getElementById("editorModal").classList.add("hidden");
-        document.getElementById("editorForm").reset();
-      });
-    }
-
-    const editorForm = document.getElementById("editorForm");
-    if (editorForm) {
-      editorForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const category = document.getElementById("category").value;
-        const uu = document.getElementById("uu").value.trim();
-        const tindak = document.getElementById("tindak").value.trim();
-        const denda = parseInt(document.getElementById("denda").value, 10);
-        const hukuman = document.getElementById("hukuman").value.trim();
-
-        if (uu && tindak && !isNaN(denda) && hukuman) {
-          const newRow = { uu, tindak, denda, hukuman };
-          let updatedData = { ...originalData };
-          const categoryIndex = updatedData.categories.findIndex(c => c.id === category);
-          if (categoryIndex !== -1) {
-            updatedData.categories[categoryIndex].rows.push(newRow);
-          } else {
-            updatedData.categories.push({
-              id: category,
-              title: document.getElementById("category").options[document.getElementById("category").selectedIndex].text,
-              color: category === "ringan" ? "#e8f5e9" : "#fef9c3",
-              textColor: category === "ringan" ? "#1b5e20" : "#713f12",
-              rows: [newRow]
-            });
-          }
-          renderTables(updatedData);
-          document.getElementById("editorModal").classList.add("hidden");
-          document.getElementById("editorForm").reset();
-          Swal.fire({ title: "Berhasil!", text: "Data ditambahkan untuk sesi ini.", icon: "success", timer: 1500 });
-        } else {
-          Swal.fire({ title: "Gagal!", text: "Semua field harus diisi dengan benar.", icon: "error" });
-        }
-      });
-    }
   }
 
   window.addEventListener("DOMContentLoaded", async () => {

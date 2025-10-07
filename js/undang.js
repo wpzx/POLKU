@@ -2,6 +2,12 @@
   const Swal = window.Swal;
   const POLKU_COMMON = window.POLKU_COMMON;
 
+  // Webhook URLs - Ganti dengan webhook Discord Anda
+  const WEBHOOKS = {
+    federal: "MASUKKAN_WEBHOOK_FEDERAL_DISINI",
+    kantorPusat: "MASUKKAN_WEBHOOK_KANTOR_PUSAT_DISINI"
+  };
+
   async function loadJSON(url) {
     try {
       const res = await fetch(url);
@@ -34,21 +40,23 @@
 
     data.categories.forEach((cat) => {
       const sec = document.createElement("section");
-      sec.className = "mb-6";
-      const bgColor = cat.color || "#f0f0f0";
-      const textColor = cat.textColor || "#333";
+      sec.className = "table-section";
+      sec.dataset.category = cat.id;
+      const bgColor = cat.color || "#15172e";
+      const textColor = cat.textColor || "#ffffff";
+      
       sec.innerHTML = `
-        <table class="border border-gray-300">
+        <table>
           <thead>
-            <tr style="background-color: ${bgColor}; color: ${textColor};">
-              <th colspan="6" class="p-4 text-center text-lg">${cat.title || cat.id}</th>
+            <tr style="background-color: ${bgColor};">
+              <th colspan="5">${cat.title || cat.id}</th>
             </tr>
-            <tr style="background-color: ${bgColor}; color: ${textColor};">
-              <th class="border p-2">Pasal (Ayat)</th>
-              <th class="border p-2 text-center">Ceklis</th>
-              <th class="border p-2">Pelanggaran</th>
-              <th class="border p-2">Denda</th>
-              <th class="border p-2">Massa Tahanan</th>
+            <tr style="background-color: ${bgColor};">
+              <th>Pasal (Ayat)</th>
+              <th>Ceklis</th>
+              <th>Pelanggaran</th>
+              <th>Denda</th>
+              <th>Massa Tahanan</th>
             </tr>
           </thead>
           <tbody id="${cat.id}Table"></tbody>
@@ -65,11 +73,11 @@
         const tr = document.createElement("tr");
         const penjara = typeof row.penjara === "number" ? `${row.penjara} Bulan` : row.penjara;
         tr.innerHTML = `
-          <td class="border p-2">${row.uu || '-'}</td>
-          <td class="border p-2 text-center"><input type="checkbox" class="checkbox" data-uu="${row.uu || ''}" data-tindak="${row.tindak || ''}" data-denda="${row.denda || 0}" data-penjara="${penjara || ''}"></td>
-          <td class="border p-2">${row.tindak || '-'}</td>
-          <td class="border p-2">${(row.denda || 0).toLocaleString()}</td>
-          <td class="border p-2">${penjara || '-'}</td>
+          <td>${row.uu || '-'}</td>
+          <td style="text-align: center;"><input type="checkbox" class="checkbox" data-uu="${row.uu || ''}" data-tindak="${row.tindak || ''}" data-denda="${row.denda || 0}" data-penjara="${penjara || ''}"></td>
+          <td>${row.tindak || '-'}</td>
+          <td>$${(row.denda || 0).toLocaleString()}</td>
+          <td>${penjara || '-'}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -82,18 +90,41 @@
       console.error("[undang.js] Search input not found");
       return;
     }
+    
     input.addEventListener("input", function () {
-      const filter = this.value.toLowerCase();
-      document.querySelectorAll("#uud-sections tbody tr").forEach((row) => {
-        const cells = row.getElementsByTagName("td");
-        let visible = false;
-        for (let i = 0; i < cells.length; i++) {
-          if (cells[i].textContent.toLowerCase().includes(filter)) {
+      const filter = this.value.toLowerCase().trim();
+      const sections = document.querySelectorAll(".table-section");
+      
+      sections.forEach((section) => {
+        const tbody = section.querySelector("tbody");
+        const rows = tbody.querySelectorAll("tr");
+        let hasVisibleRow = false;
+        
+        rows.forEach((row) => {
+          const cells = row.getElementsByTagName("td");
+          let visible = false;
+          
+          if (filter === "") {
             visible = true;
-            break;
+          } else {
+            for (let i = 0; i < cells.length; i++) {
+              if (cells[i].textContent.toLowerCase().includes(filter)) {
+                visible = true;
+                break;
+              }
+            }
           }
+          
+          row.style.display = visible ? "" : "none";
+          if (visible) hasVisibleRow = true;
+        });
+        
+        // Hide atau show section berdasarkan apakah ada row yang visible
+        if (hasVisibleRow || filter === "") {
+          section.classList.remove("hidden");
+        } else {
+          section.classList.add("hidden");
         }
-        row.style.display = visible ? "" : "none";
       });
     });
   }
@@ -139,7 +170,7 @@
       table.classList.remove("hidden");
       document.getElementById("uu-summary").textContent = currentSummaryData.uu;
       document.getElementById("tindak-summary").textContent = currentSummaryData.tindak;
-      document.getElementById("denda-summary").textContent = currentSummaryData.dendaFormatted;
+      document.getElementById("denda-summary").textContent = `$${currentSummaryData.dendaFormatted}`;
       document.getElementById("penjara-summary").textContent = currentSummaryData.penjara;
       document.getElementById("lokasi-summary").textContent = currentSummaryData.lokasi;
     } else {
@@ -164,6 +195,18 @@
           });
           return;
         }
+        
+        // Check webhook configuration
+        const webhookUrl = currentSummaryData.lokasi === "Federal" ? WEBHOOKS.federal : WEBHOOKS.kantorPusat;
+        if (webhookUrl.includes("MASUKKAN_WEBHOOK")) {
+          Swal.fire({
+            icon: "error",
+            title: "Webhook Belum Dikonfigurasi",
+            html: `Webhook untuk <strong>${currentSummaryData.lokasi}</strong> belum diatur.<br>Silakan hubungi administrator untuk mengkonfigurasi webhook Discord.`,
+          });
+          return;
+        }
+        
         discordModal.classList.add("show");
       });
     }
@@ -186,24 +229,28 @@
       discordForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         
-        const webhookUrl = document.getElementById("webhookUrl").value.trim();
         const tersangkaName = document.getElementById("tersangkaName").value.trim();
         const petugasName = sessionStorage.getItem("username") || "Tidak Diketahui";
         const petugasRank = sessionStorage.getItem("rank") || "-";
+        const petugasDivision = sessionStorage.getItem("division") || "-";
 
-        if (!webhookUrl || !tersangkaName) {
+        if (!tersangkaName) {
           Swal.fire({
             icon: "error",
             title: "Data Tidak Lengkap",
-            text: "Mohon isi semua field yang diperlukan",
+            text: "Mohon isi nama tersangka",
           });
           return;
         }
 
+        // Determine webhook based on location
+        const webhookUrl = currentSummaryData.lokasi === "Federal" ? WEBHOOKS.federal : WEBHOOKS.kantorPusat;
+        const embedColor = currentSummaryData.lokasi === "Federal" ? 15158332 : 3447003; // Red for Federal, Blue for Kantor Pusat
+
         // Create Discord embed
         const embed = {
           title: "📋 Laporan Tindak Pidana - Polisi Kuyland",
-          color: 3447003, // Blue color
+          color: embedColor,
           fields: [
             {
               name: "👤 Nama Tersangka",
@@ -237,12 +284,12 @@
             },
             {
               name: "👮 Petugas Yang Menangani",
-              value: `${petugasName}\n${petugasRank}`,
+              value: `**${petugasName}**\n${petugasRank}\n${petugasDivision}`,
               inline: false
             }
           ],
           footer: {
-            text: "Polisi Kuyland Roleplay - System Report"
+            text: "Polisi Kuyland Roleplay - Automated Report System"
           },
           timestamp: new Date().toISOString()
         };
@@ -258,12 +305,13 @@
             }),
           });
 
-          if (response.ok) {
+          if (response.ok || response.status === 204) {
             Swal.fire({
               icon: "success",
               title: "Berhasil!",
-              text: "Laporan berhasil dikirim ke Discord",
-              timer: 2000
+              html: `Laporan berhasil dikirim ke Discord<br><strong>${currentSummaryData.lokasi}</strong>`,
+              timer: 2500,
+              showConfirmButton: false
             });
             discordModal.classList.remove("show");
             discordForm.reset();
@@ -275,7 +323,7 @@
           Swal.fire({
             icon: "error",
             title: "Gagal Mengirim",
-            text: "Terjadi kesalahan saat mengirim ke Discord. Periksa webhook URL Anda.",
+            text: "Terjadi kesalahan saat mengirim ke Discord. Periksa konfigurasi webhook.",
           });
         }
       });
@@ -314,11 +362,23 @@
           const text = el?.textContent || "";
           if (text && text !== "-") {
             navigator.clipboard.writeText(text).then(
-              () => Swal.fire({ title: "Berhasil!", text: "Teks disalin ke clipboard", icon: "success", timer: 1500 }),
+              () => Swal.fire({ 
+                title: "Berhasil!", 
+                text: "Teks disalin ke clipboard", 
+                icon: "success", 
+                timer: 1500,
+                showConfirmButton: false
+              }),
               (err) => console.error("[undang.js] copy error:", err)
             );
           } else {
-            Swal.fire({ title: "Tidak Ada Data", text: "Tidak ada data untuk disalin", icon: "info", timer: 1500 });
+            Swal.fire({ 
+              title: "Tidak Ada Data", 
+              text: "Tidak ada data untuk disalin", 
+              icon: "info", 
+              timer: 1500,
+              showConfirmButton: false
+            });
           }
         });
       }

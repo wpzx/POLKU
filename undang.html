@@ -10,21 +10,24 @@
 <body>
     <header class="header">
         <div class="container">
-            <h1 class="header-title">Polisi Kuyland</h1>
+            <div class="header-logo-title">
+                <img src="foto/logo polisi.png" alt="Logo Polisi Kuyland" class="header-logo">
+                <h1 class="header-title">Polisi Kuyland</h1>
+            </div>
             <nav class="nav">
                 <div class="nav-item dropdown">
-                    <button class="nav-link">Layanan</button>
+                    <button class="nav-link">Layanan ▼</button>
                     <div class="dropdown-content">
-                        <a href="sop.html">SOP</a>
-                        <a href="undang.html">UUD Kuyland</a>
-                        <a href="berkendara.html">UUD Berkendara</a>
+                        <a href="sop.html">📋 SOP</a>
+                        <a href="undang.html">⚖️ UUD Kuyland</a>
+                        <a href="berkendara.html">🚗 UUD Berkendara</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <button id="user-info" class="nav-link"><span id="user-name">Silahkan Login</span></button>
+                    <button id="user-info" class="nav-link"><span id="user-name">👤 Silahkan Login</span></button>
                     <div id="profile-menu" class="dropdown-content">
-                        <a id="openProfile" href="#">Profil</a>
-                        <a href="index.html">Logout</a>
+                        <a id="openProfile" href="#">👮 Profil</a>
+                        <a href="index.html">🚪 Logout</a>
                     </div>
                 </div>
             </nav>
@@ -34,10 +37,12 @@
     <div id="profileModal" class="modal">
         <div class="modal-content">
             <button id="closeProfile" class="close-btn">&times;</button>
-            <h2 class="modal-title">Profil Petugas</h2>
-            <p><strong>Nama:</strong> <span id="petugasNama">Nama Polisi</span></p>
-            <p><strong>Pangkat:</strong> <span id="petugasJabatan">-</span></p>
-            <p><strong>Divisi:</strong> <span id="petugasDivisi">-</span></p>
+            <h2 class="modal-title">👮 Profil Petugas</h2>
+            <div style="padding: 10px 0;">
+                <p style="margin: 10px 0;"><strong>Nama:</strong> <span id="petugasNama">Nama Polisi</span></p>
+                <p style="margin: 10px 0;"><strong>Pangkat:</strong> <span id="petugasJabatan">-</span></p>
+                <p style="margin: 10px 0;"><strong>Divisi:</strong> <span id="petugasDivisi">-</span></p>
+            </div>
         </div>
     </div>
 
@@ -45,35 +50,36 @@
     <div id="discordModal" class="modal">
         <div class="modal-content">
             <button id="closeDiscord" class="close-btn">&times;</button>
-            <h2 class="modal-title">Kirim ke Discord</h2>
+            <h2 class="modal-title">📤 Kirim Laporan ke Discord</h2>
             <form id="discordForm">
                 <div class="form-group">
-                    <label for="webhookUrl">Discord Webhook URL:</label>
-                    <input type="url" id="webhookUrl" class="form-input" placeholder="https://discord.com/api/webhooks/..." required>
+                    <label for="tersangkaName">👤 Nama Tersangka:</label>
+                    <input type="text" id="tersangkaName" class="form-input" placeholder="Masukkan nama lengkap tersangka" required>
                 </div>
-                <div class="form-group">
-                    <label for="tersangkaName">Nama Tersangka:</label>
-                    <input type="text" id="tersangkaName" class="form-input" placeholder="Nama lengkap tersangka" required>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                    <p style="margin: 5px 0; font-size: 14px; color: #666;">
+                        📍 Laporan akan dikirim ke channel Discord sesuai lokasi penahanan secara otomatis.
+                    </p>
                 </div>
-                <button type="submit" class="btn btn-success">Kirim ke Discord</button>
+                <button type="submit" class="btn btn-success" style="width: 100%;">📨 Kirim ke Discord</button>
             </form>
         </div>
     </div>
 
     <main class="main">
-        <h2 class="main-title">UUD Polisi Kuyland 2025</h2>
-        <input id="searchInput" type="text" placeholder="Cari pasal atau pelanggaran..." class="search-input">
+        <h2 class="main-title">⚖️ UUD Polisi Kuyland 2025</h2>
+        <input id="searchInput" type="text" placeholder=" Cari pasal atau pelanggaran..." class="search-input">
 
         <div id="uud-sections" class="table-container"></div>
 
         <div class="button-group">
             <button id="submit" class="btn btn-primary">Submit</button>
-            <button id="kirim-discord" class="btn btn-success">Kirim ke Discord</button>
+            <button id="kirim-discord" class="btn btn-success">📤 Kirim ke Discord</button>
             <button id="reset" class="btn btn-danger">Reset</button>
         </div>
 
         <div class="summary">
-            <h3 class="summary-title">Ringkasan</h3>
+            <h3 class="summary-title">📊 Ringkasan</h3>
             <table id="summary-table" class="summary-table hidden">
                 <thead>
                     <tr>
@@ -95,11 +101,11 @@
                 </tbody>
             </table>
             <div class="copy-buttons">
-                <button id="copy-uu" class="btn btn-secondary">Salin UU</button>
-                <button id="copy-tindak" class="btn btn-secondary">Salin Tindak Pidana</button>
-                <button id="copy-denda" class="btn btn-secondary">Salin Denda</button>
-                <button id="copy-penjara" class="btn btn-secondary">Salin Penjara</button>
-                <button id="copy-lokasi" class="btn btn-secondary">Salin Lokasi</button>
+                <button id="copy-uu" class="btn btn-secondary">📋 Salin UU</button>
+                <button id="copy-tindak" class="btn btn-secondary">📋 Salin Tindak Pidana</button>
+                <button id="copy-denda" class="btn btn-secondary">💰 Salin Denda</button>
+                <button id="copy-penjara" class="btn btn-secondary">⏱️ Salin Penjara</button>
+                <button id="copy-lokasi" class="btn btn-secondary">📍 Salin Lokasi</button>
             </div>
         </div>
     </main>
