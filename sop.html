@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polisi Kuyland - SOP</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="header-title">Polisi Kuyland</h1>
+            <nav class="nav">
+                <div class="nav-item dropdown">
+                    <button class="nav-link">Layanan</button>
+                    <div class="dropdown-content">
+                        <a href="sop.html">SOP</a>
+                        <a href="undang.html">UUD Kuyland</a>
+                        <a href="berkendara.html">UUD Berkendara</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <button id="user-info" class="nav-link"><span id="user-name">Silahkan Login</span></button>
+                    <div id="profile-menu" class="dropdown-content">
+                        <a id="openProfile" href="#">Profil</a>
+                        <a href="index.html">Logout</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <button id="closeProfile" class="close-btn">&times;</button>
+            <h2 class="modal-title">Profil Petugas</h2>
+            <p><strong>Nama:</strong> <span id="petugasNama">Nama Polisi</span></p>
+            <p><strong>Pangkat:</strong> <span id="petugasJabatan">-</span></p>
+            <p><strong>Divisi:</strong> <span id="petugasDivisi">-</span></p>
+        </div>
+    </div>
+
+    <main class="main">
+        <h2 class="main-title">SOP Polisi Kuyland 2025</h2>
+        <input id="searchInput" type="text" placeholder="Cari kode atau arti..." class="search-input">
+
+        <div id="sop-sections" class="table-container"></div>
+    </main>
+
+    <script src="js/common.js"></script>
+    <script src="js/sop.js"></script>
+</body>
+</html>

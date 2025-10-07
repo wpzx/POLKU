@@ -1,0 +1,44 @@
+{
+  "categories": [
+    {
+      "id": "ringan",
+      "title": "PIDANA RINGAN",
+      "color": "#e8f5e9",
+      "textColor": "#1b5e20",
+      "rows": [
+        { "uu": "1:6", "tindak": "Mengemudi Motor Tanpa Helm", "denda": 3000, "hukuman": "Kunci Ban + Impound" },
+        { "uu": "1:7", "tindak": "Kendaraan Tanpa Plate", "denda": 4000, "hukuman": "Kunci Ban + Impound" }
+      ]
+    },
+        {
+      "id": "ringan",
+      "title": "PIDANA RINGAN",
+      "color": "#e8f5e9",
+      "textColor": "#1b5e20",
+      "rows": [
+        { "uu": "1:6", "tindak": "Mengemudi Motor Tanpa Helm", "denda": 3000, "hukuman": "Kunci Ban + Impound" },
+        { "uu": "1:7", "tindak": "Kendaraan Tanpa Plate", "denda": 4000, "hukuman": "Kunci Ban + Impound" }
+      ]
+    },
+        {
+      "id": "ringan",
+      "title": "PIDANA RINGAN",
+      "color": "#e8f5e9",
+      "textColor": "#1b5e20",
+      "rows": [
+        { "uu": "1:6", "tindak": "Mengemudi Motor Tanpa Helm", "denda": 3000, "hukuman": "Kunci Ban + Impound" },
+        { "uu": "1:7", "tindak": "Kendaraan Tanpa Plate", "denda": 4000, "hukuman": "Kunci Ban + Impound" }
+      ]
+    },
+    {
+      "id": "sedang",
+      "title": "PIDANA SEDANG",
+      "color": "#fef9c3",
+      "textColor": "#713f12",
+      "rows": [
+        { "uu": "1:16", "tindak": "Balapan Liar", "denda": 5000, "hukuman": "Kunci Ban + Impound" },
+        { "uu": "1:17", "tindak": "Tabrak Lari", "denda": 4000, "hukuman": "Kunci Ban + Impound" }
+      ]
+    }
+  ]
+}

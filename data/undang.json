@@ -1,0 +1,41 @@
+{
+  "categories": [
+    {
+      "id": "nyawa",
+      "title": "TINDAK PIDANA TERHADAP NYAWA",
+      "color": "#e0f2fe",
+      "textColor": "#0c4a6e",
+      "rows": [
+        { "uu": "7(1)", "tindak": "Percobaan Terorisme", "denda": 80000, "penjara": 100 },
+        { "uu": "8(1)", "tindak": "Pembunuhan", "denda": 80000, "penjara": 70 },
+        { "uu": "8(2)", "tindak": "Percobaan Pembunuhan", "denda": 40000, "penjara": 60 },
+        { "uu": "9(1)", "tindak": "Penodongan ke warga", "denda": 30000, "penjara": 40 },
+        { "uu": "9(2)", "tindak": "Penyanderaan", "denda": 30000, "penjara": 35 }
+      ]
+    },
+    {
+      "id": "senjata",
+      "title": "TINDAK PIDANA SENJATA API & PELEDAK",
+      "color": "#fee2e2",
+      "textColor": "#7f1d1d",
+      "rows": [
+        { "uu": "10(1)", "tindak": "Memiliki Senjata Api Tanpa Izin", "denda": 25000, "penjara": 45 },
+        { "uu": "10(2)", "tindak": "Menembakkan Senjata Api di Area Publik", "denda": 30000, "penjara": 50 },
+        { "uu": "10(3)", "tindak": "Memiliki Bahan Peledak", "denda": 40000, "penjara": 55 },
+        { "uu": "11(1)", "tindak": "Menjual Senjata Api Ilegal", "denda": 50000, "penjara": 65 }
+      ]
+    },
+        {
+      "id": "senjata",
+      "title": "TINDAK PIDANA SENJATA API & PELEDAK",
+      "color": "#fee2e2",
+      "textColor": "#7f1d1d",
+      "rows": [
+        { "uu": "10(1)", "tindak": "Memiliki Senjata Api Tanpa Izin", "denda": 25000, "penjara": 45 },
+        { "uu": "10(2)", "tindak": "Menembakkan Senjata Api di Area Publik", "denda": 30000, "penjara": 50 },
+        { "uu": "10(3)", "tindak": "Memiliki Bahan Peledak", "denda": 40000, "penjara": 55 },
+        { "uu": "11(1)", "tindak": "Menjual Senjata Api Ilegal", "denda": 50000, "penjara": 65 }
+      ]
+    }
+  ]
+}

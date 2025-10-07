@@ -1,0 +1,38 @@
+{
+  "categories": [
+    {
+      "id": "radio",
+      "title": "SOP RADIO",
+      "color": "#00ff3c",
+      "textColor": "#00f83a",
+      "rows": [
+        { "kode": "8-1-0", "arti": "Izin berhenti bertugas (Off-duty)" },
+        { "kode": "8-1-1", "arti": "Izin mulai bertugas (On-duty)" },
+        { "kode": "8-1-2", "arti": "Izin Istirahat" },
+        { "kode": "8-1-3", "arti": "Izin Patroli" },
+        { "kode": "8-1", "arti": "Semua Unit Berkumpul Di Suatu Tempat (Wajib)" },
+        { "kode": "8-2", "arti": "Melaporkan Lokasi Atau Meminta Lokasi" },
+        { "kode": "8-3", "arti": "Berhenti Transmisi/Hapus Radio" },
+        { "kode": "8-6", "arti": "Dimengerti/Dipahami" },
+        { "kode": "8-8", "arti": "Menuju ke lokasi" },
+        { "kode": "8-9", "arti": "Pesan kurang jelas, Harap Diulangi Transmisi Radio" },
+        { "kode": "8-11", "arti": "Laporan Situasi (Melaporkan mengenai situasi yang terjadi)" },
+        { "kode": "8-14", "arti": "Butuh Jemputan / Transportasi" },
+        { "kode": "8-20", "arti": "Kembali ke kantor polisi" },
+        { "kode": "8-32", "arti": "Orang bersenjata" },
+        { "kode": "8-34", "arti": "Terjadi Kerusuhan" },
+        { "kode": "8-40", "arti": "Banyak Orang Di Area Tersebut" },
+        { "kode": "8-41", "arti": "Kemungkinan Aktivitas Ilegal sedang terjadi" },
+        { "kode": "8-47", "arti": "Lost Visual, Kehilangan Target / Suspect pengejaran" },
+        { "kode": "8-55", "arti": "Melakukan Penilangan" },
+        { "kode": "8-56", "arti": "Sedang terjadi Penembakan" },
+        { "kode": "8-57", "arti": "Melakukan pengejaran terhadap Tersangka" },
+        { "kode": "8-59", "arti": "Sedang terjadi Perampokan" },
+        { "kode": "8-60", "arti": "Ciri-ciri Kendaraan Tersangka (Terangkan Secara Detail)" },
+        { "kode": "8-61", "arti": "Ciri-ciri Tersangka (Terangkan Secara Detail)" },
+        { "kode": "8-70", "arti": "Meminta Bantuan Backup" },
+        { "kode": "8-99", "arti": "Situasi Selesai" }
+      ]
+    }
+  ]
+}
